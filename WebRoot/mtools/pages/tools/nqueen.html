@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>n皇后问题</title>
+</head>
+<body>
+					<div class="row">
+						<div class="col-lg-4 col-lg-offset-4">
+						<div class="box box-info">
+				            <div class="box-header with-border">
+				              <h3 class="box-title"><i class="fa fa-flash pull-right"></i>n皇后问题</h3>
+				            </div>
+
+				            <form class="form-horizontal">
+				              <div class="box-body">
+				                <div class="form-group">
+				
+				                  <div class="col-sm-12">
+				                    <input type="number" class="form-control" id="queencount" placeholder="皇后数 ">
+				                  </div>
+				                </div>
+				              </div>
+				              <!-- /.box-body -->
+				              <div class="box-footer text-center">
+				                <button onclick="start();" type="button" class="btn btn-info">查 询</button>
+				              </div>
+				              <!-- /.box-footer -->
+				            </form>
+				          </div>
+				          
+				          </div>
+				   </div>
+</body>
+<script type="text/javascript">
+var a,sum,queenArr,htmlstr="";
+function start(){
+	var nqueen = parseInt($("#queencount").val());
+	if (nqueen<1||nqueen>9||isNaN(nqueen)){
+		modals.info("皇后数输入有误！！请输入<font color='red'>1</font>至<font color='red'>9</font>之间的整数!!");
+		return;
+	}
+	InitQueenArr(nqueen);
+	PutQueen(0);
+	var option = {
+			title:"一共有 <font color='red'>"+sum+"</font> 种解法",
+			text : htmlstr,
+			large:true
+	}
+	modals.info(option);
+}
+function PutQueen(nRow){
+	var i;
+	for (i=0;i<queenArr.length;i++){
+		queenArr[nRow] = i;
+		//检测冲突
+		if (!isClash(nRow)){
+			if (nRow == a-1){
+				showQueen(++sum);
+			}else{
+				PutQueen(nRow+1);
+			}
+		}	
+	}
+}
+
+
+function isClash(nRow){
+	var col;
+	for (col=0;col<nRow;col++){
+		//同一列                                                                                                                                                                                                                                                                                  2                                                                                                                                                                                                                                                                                                                                
+		if (queenArr[nRow] == queenArr[col]){
+			return true;
+		}
+		if (Math.abs(queenArr[nRow] - queenArr[col]) == Math.abs(nRow - col)){
+			return true;
+		}
+	}
+	return false;
+}
+
+function InitQueenArr(nqueen){
+	var i;
+	htmlstr ="";
+	a = nqueen;
+	sum = 0;
+	queenArr = new Array(a);
+	for (i=0;i<queenArr.length;i++){
+		queenArr[i] = -1;
+	}
+}
+
+function showQueen(count){
+	var i,j;
+	if (sum % 4 == 1){
+		htmlstr += "<div class='row'>";
+	}
+	htmlstr += "<div class='col-lg-3'>";
+	for (i=0;i<queenArr.length;i++){
+		
+		for (j=0;j<queenArr.length;j++){
+			if (j==queenArr[i]){
+				htmlstr += "&nbsp;&nbsp;&nbsp;<i class=\"icon ion-ios-circle-filled\"></i>";
+			}else{
+				htmlstr += "&nbsp;&nbsp;&nbsp;<i class=\"icon ion-ios-circle-outline\"></i>";
+			}
+		}
+		htmlstr += "<br/>";
+	}
+	htmlstr += "</div>";
+	if (sum % 4 == 0){
+		htmlstr += "</div></br>";
+	}
+	
+}	
+</script>
+
+</html>

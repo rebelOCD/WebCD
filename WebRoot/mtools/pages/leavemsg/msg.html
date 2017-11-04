@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>留言板</title>
+</head>
+<body>
+    <div class="modal fade" id="subModal" tabindex="-1" role="dialog" aria-labelledby="subLabel">  
+		    <div class="modal-dialog" role="document">  
+		        <div class="modal-content">  
+		            <div class="modal-header text-center">  
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+		                    <span aria-hidden="true">×</span>  
+		                </button>  
+		                <h4 class="modal-title" id="subLabel">编辑留言版</h4>  
+		            </div>  
+		            <div id="submodalmsg" class="modal-body">  
+		                <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">请文明留言</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>标题</label>
+                  <input id="msgtitle" type="text" class="form-control" placeholder="标题 ...">
+                </div>
+
+                <div class="form-group">
+                  <label>留言</label>
+                  <textarea id="msgtext" class="form-control" rows="5" placeholder="内容..."></textarea>
+                </div>
+          		</div>
+		            </div>  
+		            <div class="modal-footer">  
+		                <button type="button" class="btn btn-instagram" data-dismiss="modal">关闭</button>  
+		                <button onclick="submitleavemsg()" type="button" class="btn btn-danger pull-left" data-dismiss="modal">提交</button>  
+		            </div>  
+		        </div>  
+		    </div>  
+		</div> 	
+</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<button data-toggle="modal" data-target="#subModal" type="button" class="btn btn-block btn-success">我要留言</button><br/>
+						</div>
+					</div>
+					#set(count = 0)	
+						#for(x:msgs)
+							#if(count%3==0)
+								<div class="row">							
+							#end
+							<div class="col-md-4 col-sm-12 col-xs-12">
+					          <div class="box box-success">
+					            <div class="box-header with-border">
+					              <h3 class="box-title">#(x.title)</h3>
+					              <div class="box-tools pull-right">
+					                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					              </div>
+					            </div>
+					            <div class="box-body">
+					              #(x.text)
+
+					            </div>
+					            <div class="box-footer">
+					            	留言人：<span class="text-info"><b>#(x.cname)</b></span><br/>
+					              <br/>留言时间：<span class="text-danger">#(x.logtime)</span>
+					            </div>
+					          </div>
+					       </div>						
+							#if((count+1)%3==0||for.last)
+								</div>							
+							#end
+							#set(count=count+1)
+						#end
+<script type="text/javascript">
+							function submitleavemsg(){
+								var title = $("#msgtitle").val();
+								var text = $("#msgtext").val();
+								if (title.length<3||text.length<6){
+									alert("输入要求不对,标题至少三个字,留言至少6个字");
+									return;
+								}
+							    $.ajax({  
+							        type : "POST", 
+							        url : "/Mtools/submitmsg/uploadmsg",
+							        data : {  
+							            "title" : title,
+							            "text" : text
+							        },
+							        success : function(msg) {
+										alert(msg.msg);
+										window.location.reload();
+							        }  
+							    });  
+							}							
+							
+</script>
+</body>
+</html>

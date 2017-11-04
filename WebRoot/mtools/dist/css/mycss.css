@@ -1,0 +1,9 @@
+.content-wrapper{
+	background-image:url(../img/mainimg.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
+.content-wrapper .tab-pane{
+	padding: 20px;
+}

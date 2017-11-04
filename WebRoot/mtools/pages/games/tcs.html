@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>贪吃蛇</title>
+</head>
+<body>
+					<div class="row">
+						<div class="box box-danger" style="background-color: transparent;">
+            <div class="box-header with-border">
+              <h3 class="box-title"><b>贪吃蛇</b></h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="display: block;">
+              	<div class="row">
+              		<div class="text-center"><h3><span id="tcsscore" class="label label-danger">0</span></h3></div>
+              		<div class="text-center" style="padding: 20px;">
+              			<canvas id="tcsmap" width="500" height="500" style="border:1px solid #000000;"></canvas>
+              		</div>
+              	</div>
+              	<div class="row">
+              		<div class="col-lg-2 col-lg-offset-3">
+              			<button onclick="startgame();" type="button" class="btn btn-block btn-success btn-lg">开始游戏</button>
+              		</div>  
+              		<div class="col-lg-2">
+              			<button onclick="modals.info('游戏帮助');" type="button" class="btn btn-block bg-purple btn-lg">游戏帮助</button>
+              		</div>      
+              		<div class="col-lg-2">
+              			<button onclick="gamestat=0;startgame();" type="button" class="btn btn-block bg-navy btn-lg">重新开始</button>
+              		</div>
+              		       		
+              	</div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+					</div>
+</body>
+<script type="text/javascript" src="mtools/gamejs/tcs.js" ></script>
+
+</html>
